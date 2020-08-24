@@ -524,17 +524,17 @@ len(ad_id_popularity)
 
 # get_ad_id_ctr_udf = F.udf(lambda ad_id: ad_id_popularity[ad_id] if ad_id in ad_id_popularity else -1, FloatType())
 
-ad_id_avg_ctr = sum(map(lambda x: x[0], ad_id_popularity.values())) / float(len(ad_id_popularity))
+ad_id_avg_ctr = sum(map(lambda x: x[0], ad_id_popularity.values())) / float(len(ad_id_popularity)+1e-6)
 ad_id_avg_ctr
 
 ad_id_weighted_avg_ctr = sum(map(lambda x: x[0] * x[1], ad_id_popularity.values())) / float(
-    sum(map(lambda x: x[1], ad_id_popularity.values())))
+    sum(map(lambda x: x[1], ad_id_popularity.values()))+1e-6)
 ad_id_weighted_avg_ctr
 
 ad_id_views_median = np.median(np.array(list(map(lambda x: x[1], ad_id_popularity.values()))))
 ad_id_views_median
 
-ad_id_views_mean = sum(map(lambda x: x[1], ad_id_popularity.values())) / float(len(ad_id_popularity))
+ad_id_views_mean = sum(map(lambda x: x[1], ad_id_popularity.values())) / float(len(ad_id_popularity)+1e-6)
 ad_id_views_mean
 
 # ### Average CTR by document_id (promoted_content)
@@ -558,17 +558,17 @@ document_id_popularity_broad = sc.broadcast(document_id_popularity)
 
 # get_percentiles(document_id_popularity_df, 'views')
 
-document_id_avg_ctr = sum(map(lambda x: x[0], document_id_popularity.values())) / float(len(document_id_popularity))
+document_id_avg_ctr = sum(map(lambda x: x[0], document_id_popularity.values())) / float(len(document_id_popularity)+1e-6)
 document_id_avg_ctr
 
 document_id_weighted_avg_ctr = sum(list(map(lambda x: x[0] * x[1], document_id_popularity.values()))) / float(
-    sum(list(map(lambda x: x[1], document_id_popularity.values()))))
+    sum(list(map(lambda x: x[1], document_id_popularity.values())))+1e-6)
 document_id_weighted_avg_ctr
 
 document_id_views_median = np.median(np.array(list(map(lambda x: x[1], document_id_popularity.values()))))
 document_id_views_median
 
-document_id_views_mean = sum(map(lambda x: x[1], document_id_popularity.values())) / float(len(document_id_popularity))
+document_id_views_mean = sum(map(lambda x: x[1], document_id_popularity.values())) / float(len(document_id_popularity)+1e-6)
 document_id_views_mean
 
 # ### Average CTR by (doc_event, doc_ad)
@@ -607,12 +607,12 @@ len(source_id_by_country_popularity)
 source_id_by_country_popularity_broad = sc.broadcast(source_id_by_country_popularity)
 
 source_id_by_country_avg_ctr = sum(map(lambda x: x[0], source_id_by_country_popularity.values())) / float(
-    len(source_id_by_country_popularity))
+    len(source_id_by_country_popularity)+1e-6)
 source_id_by_country_avg_ctr
 
 source_id_by_country_weighted_avg_ctr = sum(
     map(lambda x: x[0] * x[1], source_id_by_country_popularity.values())) / float(
-    sum(map(lambda x: x[1], source_id_by_country_popularity.values())))
+    sum(map(lambda x: x[1], source_id_by_country_popularity.values()))+1e-6)
 source_id_by_country_weighted_avg_ctr
 
 source_id_by_country_views_median = np.median(
@@ -620,7 +620,7 @@ source_id_by_country_views_median = np.median(
 source_id_by_country_views_median
 
 source_id_by_country_views_mean = sum(map(lambda x: x[1], source_id_by_country_popularity.values())) / float(
-    len(source_id_by_country_popularity))
+    len(source_id_by_country_popularity)+1e-6)
 source_id_by_country_views_mean
 
 # ### Average CTR by source_id
@@ -764,7 +764,7 @@ list(category_id_popularity.values())[:10]
 
 np.median(np.array(list(map(lambda x: x[1], category_id_popularity.values()))))
 
-sum(map(lambda x: x[1], category_id_popularity.values())) / float(len(category_id_popularity))
+sum(map(lambda x: x[1], category_id_popularity.values())) / float(len(category_id_popularity)+1e-6)
 
 # Parece haver uma hierarquia nas categorias pelo padrão dos códigos...
 # category_id_popularity
@@ -808,9 +808,9 @@ len(topic_id_popularity)
 
 topic_id_popularity_broad = sc.broadcast(topic_id_popularity)
 
-sum(map(lambda x: x[1], topic_id_popularity.values())) / float(len(topic_id_popularity))
+sum(map(lambda x: x[1], topic_id_popularity.values())) / float(len(topic_id_popularity)+1e-6)
 
-sum(map(lambda x: x[2] * x[1], topic_id_popularity.values())) / float(len(topic_id_popularity))
+sum(map(lambda x: x[2] * x[1], topic_id_popularity.values())) / float(len(topic_id_popularity)+1e-6)
 
 # ### Average CTR by (country, topic)
 topic_id_by_country_popularity_df = train_set_df.join(
@@ -853,7 +853,7 @@ entity_id_popularity_broad = sc.broadcast(entity_id_popularity)
 
 np.median(np.array(list(map(lambda x: x[1], entity_id_popularity.values()))))
 
-sum(map(lambda x: x[1], entity_id_popularity.values())) / float(len(entity_id_popularity))
+sum(map(lambda x: x[1], entity_id_popularity.values())) / float(len(entity_id_popularity)+1e-6)
 
 # ### Average CTR by (country, entity)
 entity_id_by_country_popularity_df = train_set_df.join(
