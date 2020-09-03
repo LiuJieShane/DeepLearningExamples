@@ -288,7 +288,6 @@ def get_feature_columns(force_subset=None):
             categorical_column = tf.feature_column.categorical_column_with_identity(
                 column_name, num_buckets=IDENTITY_NUM_BUCKETS[column_name])
             wide_columns.append(categorical_column)
-
         else:
             columns = []
             if column_name in FLOAT_COLUMNS_SIMPLE_BIN_TRANSFORM:
@@ -309,6 +308,7 @@ def get_feature_columns(force_subset=None):
                 wide_columns.append(column)
                 deep_columns.append(column)
             continue
+
         if column_name in EMBEDDING_DIMENSIONS:
             column = tf.feature_column.embedding_column(
                 categorical_column,

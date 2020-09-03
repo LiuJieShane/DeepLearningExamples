@@ -594,7 +594,7 @@ all_train.saveAsNewAPIHadoopFile(LOCAL_DATA_TFRECORDS_DIR + train_output_string,
                                  keyClass="org.apache.hadoop.io.BytesWritable",
                                  valueClass="org.apache.hadoop.io.NullWritable")
 
-all_valid.saveAsNewAPIHadoopFile(LOCAL_DATA_TFRECORDS_DIR + eval_output_string,
+all_train.saveAsNewAPIHadoopFile(LOCAL_DATA_TFRECORDS_DIR + eval_output_string,
                                  "org.tensorflow.hadoop.io.TFRecordFileOutputFormat",
                                  keyClass="org.apache.hadoop.io.BytesWritable",
                                  valueClass="org.apache.hadoop.io.NullWritable")
