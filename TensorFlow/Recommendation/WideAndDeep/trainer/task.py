@@ -67,12 +67,12 @@ def create_parser():
     parser.add_argument(
         '--global_batch_size',
         help='Total training batch size',
-        default=131072,
+        default=32768,
         type=int)
     parser.add_argument(
         '--eval_batch_size',
         help='Evaluation batch size',
-        default=16384,
+        default=1024,
         type=int)
     parser.add_argument(
         '--eval_steps',
